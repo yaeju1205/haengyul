@@ -15,4 +15,6 @@ void hg_io_clear_queue(void);
 void hg_io_insert_print_queue(const char *format, ...);
 void hg_io_flush_queue(void);
 
+char hg_io_input(void);
+
 #endif

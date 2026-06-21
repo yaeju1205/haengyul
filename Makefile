@@ -16,11 +16,10 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
 	$(CC) -c $< -o $@
 
-dev: $(TARGET)
+run: $(TARGET)
 	./$(TARGET)
-	$(MAKE) clean
 
 clean:
-	rm -rf $(BUILD_DIR) $(TARGET)
+	rm -rf $(BUILD_DIR)
 
 .PHONY: all clean

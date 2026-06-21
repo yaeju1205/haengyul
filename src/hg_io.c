@@ -37,3 +37,11 @@ void hg_io_flush_queue(void) {
 
     hg_io_clear_queue();
 }
+
+char hg_io_input(void) {
+    char ch;
+    if (read(STDIN_FILENO, &ch, 1) <= 0)
+        return -1;
+
+    return ch;
+}
