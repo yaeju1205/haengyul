@@ -10,7 +10,8 @@ void hg_screen_init(HG_Screen *screen, HG_Pixel pixel) {
 
     for (row = 0; row < HG_RENDER_ROW_SIZE; ++row) {
         for (col = 0; col < HG_RENDER_COL_SIZE; ++col) {
-            screen->frame[row][col].r = pixel.r; screen->frame[row][col].g = pixel.g;
+            screen->frame[row][col].r = pixel.r;
+            screen->frame[row][col].g = pixel.g;
             screen->frame[row][col].b = pixel.b;
         }
     }
@@ -21,8 +22,8 @@ void hg_screen_clear(HG_Screen *screen) {
 }
 
 void hg_render_pixel(HG_Pixel *pixel) {
-    hg_term_set_color(pixel->r, pixel->g, pixel->b);
-    hg_io_insert_print_queue(" ");
+    hg_term_set_fg_color(pixel->r, pixel->g, pixel->b);
+    hg_term_set_bg_color(pixel->r, pixel->g, pixel->b);
 }
 
 void hg_render_screen(HG_Screen *screen) {

@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-#define HG_RENDER_ROW_SIZE 16
-#define HG_RENDER_COL_SIZE 16
+#define HG_RENDER_ROW_SIZE 32
+#define HG_RENDER_COL_SIZE 32
 
 typedef struct {
     uint8_t r;

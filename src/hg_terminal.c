@@ -3,14 +3,18 @@
 #include <unistd.h>
 #include <termios.h>
 
-void hg_term_reset_mode(void) {
-    struct termios term;
+static struct termios g_original_term;
 
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &term);
+void hg_term_save_mode(void) {
+    tcgetattr(STDIN_FILENO, &g_original_term);
+}
+
+void hg_term_reset_mode(void) {
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_original_term);
 }
 
 void hg_term_raw_mode(void) {
-    struct termios term;
+    struct termios term = g_original_term;
 
     term.c_lflag &= ~(ICANON | ECHO);
 
@@ -21,8 +25,12 @@ void hg_term_clear_color(void) {
     hg_io_insert_print_queue("\033[0m");
 }
 
-void hg_term_set_color(unsigned int r, unsigned int g, unsigned int b) {
+void hg_term_set_fg_color(unsigned int r, unsigned int g, unsigned int b) {
     hg_io_insert_print_queue("\033[48;2;%d;%d;%dm ", r, g, b);
+}
+
+void hg_term_set_bg_color(unsigned int r, unsigned int g, unsigned int b) {
+    hg_io_insert_print_queue("\033[38;2;%d;%d;%dm ", r, g, b);
 }
 
 void hg_term_cursor_move(unsigned int row, unsigned int col) {
