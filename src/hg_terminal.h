@@ -4,8 +4,10 @@
 #include <stdio.h>
 
 void hg_term_clear_color();
+void hg_term_set_color(unsigned int r, unsigned int g, unsigned int b);
 
-void hg_term_cursor_move(unsigned int x, unsigned y);
+void hg_term_cursor_move(unsigned int row, unsigned int col);
+void hg_term_cursor_move_now(unsigned int row, unsigned int col);
 void hg_term_hidden_cursor();
 void hg_term_visible_cursor();
 

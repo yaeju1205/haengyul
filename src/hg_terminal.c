@@ -1,38 +1,34 @@
 #include "hg_terminal.h"
-#include <stdio.h>
+#include "hg_io.h"
 
 void hg_term_clear_color() {
-    printf("\033[0m");
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[0m");
+}
+
+void hg_term_set_color(unsigned int r, unsigned int g, unsigned int b) {
+    hg_io_insert_print_queue("\033[48;2;%d;%d;%dm ", r, g, b);
 }
 
 void hg_term_cursor_move(unsigned int row, unsigned int col) {
-    printf("\033[%u;%uH", row, col);
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[%u;%uH", row, col);
 }
 
 void hg_term_hidden_cursor() {
-    printf("\033[?25l");
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[?25l");
 }
 
 void hg_term_visible_cursor() {
-    printf("\033[?25h");
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[?25h");
 }
 
 void hg_term_clear_screen() {
-    printf("\033[2J\033[H");
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[2J\033[H");
 }
 
 void hg_term_enter_screen() {
-    printf("\033[?1049h");
-    hg_term_clear_screen();
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[?1049h");
 }
 
 void hg_term_exit_screen() {
-    printf("\033[?1049l");
-    fflush(stdout);
+    hg_io_insert_print_queue("\033[?1049l");
 }

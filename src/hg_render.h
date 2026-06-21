@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define HG_RENDER_ROW_SIZE 16
-#define HG_RENDER_COL_SIZE 32
+#define HG_RENDER_COL_SIZE 16
 
 typedef struct {
     uint8_t r;
@@ -20,6 +20,7 @@ void hg_screen_init(HG_Screen *screen, HG_Pixel pixel);
 void hg_screen_clear(HG_Screen *screen);
 
 void hg_render_pixel(HG_Pixel *pixel);
+void hg_render_screen(HG_Screen *screen);
 void hg_render(HG_Screen *screen);
 
 #endif
