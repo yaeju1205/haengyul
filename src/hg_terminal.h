@@ -3,6 +3,13 @@
 
 #include <stdio.h>
 
+extern int g_terminal_rows;
+extern int g_terminal_cols;
+
+extern struct termios g_original_term;
+
+void hg_term_update_size(void);
+
 void hg_term_save_mode(void);
 void hg_term_reset_mode(void);
 void hg_term_raw_mode(void);

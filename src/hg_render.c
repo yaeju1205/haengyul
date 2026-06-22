@@ -1,6 +1,7 @@
 #include "hg_render.h"
 #include "hg_io.h"
 #include "hg_terminal.h"
+#include "hg_math.h"
 #include <stdint.h>
 #include <immintrin.h>
 #include <string.h>
@@ -29,10 +30,13 @@ void hg_render_pixel(HG_Pixel *pixel) {
 void hg_render_screen(HG_Screen *screen) {
     uint8_t row, col;
 
-    for (row = 0; row < HG_RENDER_ROW_SIZE; ++row) {
+    int max_rows = hg_min(HG_RENDER_ROW_SIZE, g_terminal_rows);
+    int max_cols = hg_min(HG_RENDER_ROW_SIZE, (g_terminal_cols / 2));
+
+    for (row = 0; row < max_rows; ++row) {
         hg_term_cursor_move(row + 1, 1);
 
-        for (col = 0; col < HG_RENDER_COL_SIZE; ++col) {
+        for (col = 0; col < max_cols; ++col) {
             hg_render_pixel(&screen->frame[row][col]);
         }
     }

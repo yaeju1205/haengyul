@@ -13,6 +13,10 @@ void hg_main_loop(HG_Program *program) {
             break;
         }
 
+        if (g_signals.windch_triggered) {
+            hg_term_update_size();
+        }
+
         if (is_dirty) {
             hg_render(program->screen);
             is_dirty = 0;
@@ -45,6 +49,7 @@ static void hg_main_exit(void) {
 void hg_main(HG_Program *program) {
     hg_signal_init();
 
+    hg_term_update_size();
     hg_term_save_mode();
     hg_term_raw_mode();
 

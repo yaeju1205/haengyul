@@ -2,8 +2,21 @@
 #include "hg_io.h"
 #include <unistd.h>
 #include <termios.h>
+#include <sys/ioctl.h>
 
-static struct termios g_original_term;
+int g_terminal_rows = 24;
+int g_terminal_cols = 80;
+
+struct termios g_original_term;
+
+void hg_term_update_size() {
+    struct winsize w;
+
+    if (!(ioctl(STDOUT_FILENO, TIOCGWINSZ, &w))) {
+        g_terminal_rows = w.ws_row;
+        g_terminal_cols = w.ws_col;
+    }
+}
 
 void hg_term_save_mode(void) {
     tcgetattr(STDIN_FILENO, &g_original_term);
